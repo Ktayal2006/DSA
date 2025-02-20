@@ -177,7 +177,93 @@ vector<int>* path(BinaryTreeNode<int>* root, int x){
     }
     return nullptr;
 }
+int getLCA(BinaryTreeNode <int>* root , int a, int b) {
+	if(!root)
+		return -1;
+    
+	vector<int>* pathA = path(root,a);
+	vector<int>* pathB = path(root,b);
 
+    if(!pathA || !pathB){
+        delete pathB;
+        delete pathA;
+        return -1;
+    }
+    reverse(pathA->begin(), pathA->end());
+    reverse(pathB->begin(), pathB->end());
+    /*cout << "path A begins" << endl;
+    for (int x : *pathA) {  
+        std::cout << x << " ";  
+    }
+    cout << endl << "path B begins" << endl;
+    for (int x : *pathB) {
+        std::cout << x << " ";
+    }
+    cout << endl;*/
+
+
+    int lca = -1;
+    int i = 0;
+	while(i<pathA->size() && i<pathB->size()){
+		if(pathB->at(i) == pathA->at(i))
+            lca = pathA->at(i);
+        else
+            break;
+        ++i;
+    }
+    delete pathA;
+    delete pathB;
+    return lca;
+}
+void descendingOrderTraversal(BinaryTreeNode<int>* root) {
+    if (root == nullptr)
+        return;
+    descendingOrderTraversal(root->right); // Visit Right subtree
+    cout << root->data << " ";             // Print Node
+    descendingOrderTraversal(root->left);  // Visit Left subtree
+}
+bool inline isLeaf(BinaryTreeNode<int>* root){
+	if(root->left == nullptr && root->right == nullptr)
+		return true;
+	return false;
+}
+void helperRootToLeaf(BinaryTreeNode<int>* root, vector<vector<int>*>* paths, int sum,int* index){
+	if(root == nullptr)
+		return;
+	if(isLeaf(root)){
+		if(sum == root->data){
+			vector<int>* ans = new vector<int>;
+			ans->push_back(root->data);
+			paths->push_back(ans);
+			(*index)++;
+		}
+		return;
+	}
+	int count = *index;
+	helperRootToLeaf(root->left, paths, sum - root->data,index);
+	helperRootToLeaf(root->right,paths,sum-root->data,index);
+	for(;count<paths->size(); ++ count)
+			paths->at(count)->push_back(root->data);
+	return;
+}
+
+void rootToLeafPathsSumToK(BinaryTreeNode<int> *root, int k) {
+    int* index = new int(0);
+	vector<vector<int>*>* path = new vector<vector<int>*>();
+	helperRootToLeaf(root,path,k,index);
+
+    for (size_t i = 0; i < path->size(); ++i) {
+        vector<int>* vec = path->at(i);
+        for (int j = vec->size() - 1; j >= 0; --j) {
+            cout << vec->at(j) << " ";
+        }
+        cout << endl;
+    }
+    for (size_t i = 0; i < path->size(); ++i) {
+        delete path->at(i);
+    }
+    delete path;
+}
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1
 int main(){
     /*BinaryTreeNode<int> * root = new BinaryTreeNode<int>(1);
@@ -189,13 +275,21 @@ int main(){
     int in[]={2,6,3,9,5,10};*/
     BinaryTreeNode<int> * root = input();
     print(root);
-    vector<int>* ans = path(root,9);
+    cout << endl;
+    descendingOrderTraversal(root);
+    /*vector<int>* ans = path(root,9);
     for (int i = 0; i < ans->size(); i++) {
         cout << ans->at(i) << " ";
     }
-    cout << endl;
+    cout << endl;*/
+    
+    /*int a,b;
+    cout << "Enter 2 numbers" << endl;
+    cin >> a >> b;
+    cout << getLCA(root,a,b) << endl;*/
+    
     //cout << "Count = " << countNodes(root) << endl;
     delete root;
-    delete ans;
+    //delete ans;
     return 0;
 }
