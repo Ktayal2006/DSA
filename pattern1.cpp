@@ -1,10 +1,7 @@
 #include <iostream>
 using namespace std;
-int main()
+void p1(int n)
 {
-    int n;
-    cout << "Enter n" << endl;
-    cin >> n;
     int i=1;
     int val=1;
     while (i<=n){
@@ -22,5 +19,57 @@ int main()
         cout << endl;
         i+=1;
     }
-	return 0;
 }
+void p2(int n)
+{
+    int i,j;
+    // cout << "Enter n" << endl;
+    for (i=1; i<=n; i++){
+        for(j=0; j<(2*(n-i)) ;++j)
+            cout << " ";
+        for(j=i; j>0; --j)
+            cout << j;
+        for( j=2; j<=i; j++ )
+            cout << j;
+        cout << endl;
+    }
+}
+void p3(int n)
+{
+    int i,j;
+    //cout << "Enter n" << endl;
+    //cin >> n;
+    for (i=0; i<n; i++){
+        for(j=0;j<(n-i-1);j++)
+            cout << " ";
+        for(j=0; j<(2*i+1); j++)
+        {
+            cout << "*";
+        }
+        cout << endl;
+    }
+}
+void p4(int n)
+{
+    int i, j;
+    for ( i=0; i<n; i++){
+             for (j=0; j<=i; j++){
+                 cout << char('A' + n + j - i -1);
+             }
+             cout << endl;
+         }
+}
+int main(){
+    cout << "Enter n" << endl;
+    int n;
+    cin >> n;
+    p1(n);
+    cout << endl;
+    p2(n);
+    cout << endl;
+    p3(n);
+    cout << endl;
+    p4(n);
+    cout << endl;
+}
+
