@@ -84,11 +84,9 @@ int main(){
     fraction f5;
     fraction f1(10,2), f2(15,4);
     f1.display();
-    f1 += (f1 += f1);
+    f1++;
+    ++f1;
     f1.display();
-    f5.display();
-
-
     /*
     fraction f3 = f1.add(f2);
     f1.display();
