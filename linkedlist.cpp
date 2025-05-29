@@ -190,32 +190,3 @@ class linkedList{
 	        head = nhead;
         }
 };
-
-node* reverse(Node *head){
-    if(head==nullptr || head->next == nullptr)
-        return head;
-    node* tail = head->next;
-    node* temp = reverse(head->next);
-    tail->next = head;
-    head->next = nullptr;
-    return temp;
-}
-
-
-int main(){
-    linkedList l;
-    l.sortedAdd(5);
-    l.sortedAdd(10);
-    l.sortedAdd(15);
-    l.sortedAdd(3);
-    l.sortedAdd(5);
-    l.print();
-    linkedList p;
-    p.sortedAdd(5);
-    p.sortedAdd(0);
-    p.sortedAdd(18);
-    p.sortedAdd(16);
-    p.print();
-    l.mergeTwoSortedLinkedLists(p);
-    l.print();
-}
