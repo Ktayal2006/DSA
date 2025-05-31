@@ -1,4 +1,4 @@
 1. Remove function in suffix trie
 2. Implement huffman coding
-3. Implenet AVL trees
+3. Implement AVL trees
 4. Understand B-trees
